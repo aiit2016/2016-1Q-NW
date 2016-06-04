@@ -4,12 +4,12 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ChatClientThread extends Thread {
+public class FchatClientInstance extends Thread {
 	private Socket socket = null;
-	private ChatClient client = null;
+	private FchatClient client = null;
 	private DataInputStream streamIn = null;
 
-	public ChatClientThread(ChatClient _client, Socket _socket) {
+	public FchatClientInstance(FchatClient _client, Socket _socket) {
 		client = _client;
 		socket = _socket;
 		open();

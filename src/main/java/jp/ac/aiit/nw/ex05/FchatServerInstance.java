@@ -7,14 +7,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ChatServerThread extends Thread {
-	private ChatServer server = null;
+public class FchatServerInstance extends Thread {
+	private FchatServer server = null;
 	private Socket socket = null;
 	private int ID = -1;
 	private DataInputStream streamIn = null;
 	private DataOutputStream streamOut = null;
 
-	public ChatServerThread(ChatServer _server, Socket _socket) {
+	public FchatServerInstance(FchatServer _server, Socket _socket) {
 		super();
 		server = _server;
 		socket = _socket;

@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ChatServer implements Runnable {
-	private ChatServerThread clients[] = new ChatServerThread[50];
+public class FchatServer implements Runnable {
+	private FchatServerInstance clients[] = new FchatServerInstance[50];
 	private ServerSocket server = null;
 	private Thread thread = null;
 	private int clientCount = 0;
 
-	public ChatServer(int port) {
+	public FchatServer(int port) {
 		try {
 			System.out
 					.println("Binding to port " + port + ", please wait  ...");
@@ -68,7 +68,7 @@ public class ChatServer implements Runnable {
 	public synchronized void remove(int ID) {
 		int pos = findClient(ID);
 		if (pos >= 0) {
-			ChatServerThread toTerminate = clients[pos];
+			FchatServerInstance toTerminate = clients[pos];
 			System.out.println("Removing client thread " + ID + " at " + pos);
 			if (pos < clientCount - 1)
 				for (int i = pos + 1; i < clientCount; i++)
@@ -86,7 +86,7 @@ public class ChatServer implements Runnable {
 	private void addThread(Socket socket) {
 		if (clientCount < clients.length) {
 			System.out.println("Client accepted: " + socket);
-			clients[clientCount] = new ChatServerThread(this, socket);
+			clients[clientCount] = new FchatServerInstance(this, socket);
 			try {
 				clients[clientCount].open();
 				clients[clientCount].start();
@@ -100,10 +100,10 @@ public class ChatServer implements Runnable {
 	}
 
 	public static void main(String args[]) {
-		ChatServer server = null;
+		FchatServer server = null;
 		if (args.length != 1)
 			System.out.println("Usage: java ChatServer port");
 		else
-			server = new ChatServer(Integer.parseInt(args[0]));
+			server = new FchatServer(Integer.parseInt(args[0]));
 	}
 }
